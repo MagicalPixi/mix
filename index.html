@@ -3,24 +3,17 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>游戏</title>
-    <style>
-        body{
-            margin: 0;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-        }
-        canvas{
-            width: 100%;
-            height: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="./stylesheets/index.css" type="text/css">
 </head>
 <body>
-
+  <div class="mix_title" id="mix_title">
+    <img id="mix_title_img" class="mix_title_img" src="./imgs/mix_title.png" alt=""/>
+  </div>
+  <div id="mix_rule" class="mix_rule">
+    <img id="mix_rule_img" class="mix_rule_img" src="./imgs/mix_rule.png" alt=""/>
+  </div>
+  <div id="mix_start" class="mix_start">
+    <img src="./imgs/mix_start.png" alt="" class="mix_start_img" id="mix_start_img">
+  </div>
 </body>
-<script src="pixi.min.js"></script>
-<script src="dist/dist.js"></script>
 </html>
