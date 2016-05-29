@@ -21,7 +21,6 @@ var redball = require('./sprites/redball')
 stage.addChild(blueball)
 stage.addChild(redball)
 stage.addChild(block)
-
 initLine(leftData, true)
 initLine(rightData, false)
 animate();
@@ -71,5 +70,35 @@ function initLine(data, left) {
     line.x = left ? 0 : 630
     block.addChild(line)
   }
+}
+
+
+function intersection(circle1, circle2) {
+   var a, dx, dy, d, h, rx, ry;
+   var x, y;
+   dx = circle2.x - circle1.x
+   dy = circle2.y - circle1.y
+   d = Math.sqrt((dy*dy) + (dx*dx));
+   if (d > (circle1.width + circle2.width)) {
+     return false;
+   }
+   if (d < Math.abs(circle1.width - circle2.width)) {
+       return false;
+   }
+   a = ((circle1.width * circle2.width) - (circle1.width * circle2.width) + (d*d)) / (2.0 * d) ;
+   x = circle1.x + (dx * a/d);
+   y = circle1.y + (dy * a/d);
+   h = Math.sqrt((circle1.width * circle1.width) - (a*a));
+   rx = -dy * (h/d);
+   ry = dx * (h/d);
+   var first = {
+     x: x + rx,
+     y: y + ry
+   }
+   var second = {
+    x: x - rx,
+    y: y - ry
+   }
+   return [first, second];
 }
 
