@@ -11,10 +11,13 @@ var renderer = PIXI.autoDetectRenderer(640, aspect * 640, {
   view: view,
   transparent:true
 });
+
 var stage = new PIXI.Container()
 var block = new PIXI.Container()
 var leftData = generateRandomGame(160, true)
 var rightData = generateRandomGame(160, false)
+var blockAreas = require('./blockArea')(leftData, rightData);
+
 var blueball = require('./sprites/blueball')
 var redball = require('./sprites/redball')
 
