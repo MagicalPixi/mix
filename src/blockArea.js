@@ -32,8 +32,8 @@ var blockAreaCul = function(leftData, rightData) {
             i++;
         }
         var curArea = {
-            before : before,
-            height : currentHeight,
+            before : before*80,
+            height : currentHeight*80,
             isEffect : curLeft.isRed != curRight.isRed
         };
         blockAreas.push(curArea);

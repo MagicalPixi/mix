@@ -20,6 +20,7 @@ var blockAreas = require('./blockArea')(leftData, rightData);
 
 var blueball = require('./sprites/blueball')
 var redball = require('./sprites/redball')
+var controller =  require('./mainController')(block, blockAreas, blueball, redball);
 
 stage.addChild(blueball)
 stage.addChild(redball)
@@ -30,6 +31,7 @@ animate();
 function animate() {
     renderer.render(stage);
     block.y -= 8
+    controller.updateOneTime();
     requestAnimationFrame(animate);
 }
 
