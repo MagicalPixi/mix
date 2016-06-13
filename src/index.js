@@ -31,8 +31,9 @@ animate();
 function animate() {
     renderer.render(stage);
     block.y -= 8
-    controller.updateOneTime();
-    requestAnimationFrame(animate);
+    if(controller.updateOneTime()) {
+      requestAnimationFrame(animate);
+    }
 }
 
 window.onresize = function() {

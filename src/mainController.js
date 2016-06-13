@@ -19,16 +19,16 @@ function intersection(circle1, circle2) {
     dx = circle2.x - circle1.x
     dy = circle2.y - circle1.y
     d = Math.sqrt((dy*dy) + (dx*dx));
-    if (d > (circle1.width + circle2.width)) {
+    if (d > (circle1.width/2 + circle2.width/2)) {
         return false;
     }
-    if (d < Math.abs(circle1.width - circle2.width)) {
+    if (d < Math.abs(circle1.width/2 - circle2.width/2)) {
         return false;
     }
-    a = ((circle1.width * circle2.width) - (circle1.width * circle2.width) + (d*d)) / (2.0 * d) ;
+    a = ((circle1.width/2 * circle2.width/2) - (circle1.width/2 * circle2.width/2) + (d*d)) / (2.0 * d) ;
     x = circle1.x + (dx * a/d);
     y = circle1.y + (dy * a/d);
-    h = Math.sqrt((circle1.width * circle1.width) - (a*a));
+    h = Math.sqrt((circle1.width/2 * circle1.width/2) - (a*a));
     rx = -dy * (h/d);
     ry = dx * (h/d);
     var first = {
@@ -60,16 +60,25 @@ function Controller(blockState, blockAreas, blueball, redball) {
 
 Controller.create = function(blockState, blockAreas, blueball, redball) {
     var controller = new Controller(blockState, blockAreas, blueball, redball);
-    controller.firstBlockInit();
     controller.indexInit();
+    controller.firstBlockInit();
     return controller;
 }
 
 Controller.prototype.firstBlockInit = function() {
-    for(var i = 0; i < maxAreaNum; i++) {
+    var blockAreas = this.blockAreas;
+    var index = 0;
+    var blankArea = 800;
+    for(var i = 0; i < blockAreas.length; i++) {
+        if(blockAreas[i].before > blankArea) {
+            index = i;
+            break;
+        }
+    }
+    for(var i = index; i < index+maxAreaNum; i++) {
         this.blockInit(i);
     }
-    this.maxDisplayIndex = maxAreaNum-1;
+    this.maxDisplayIndex = index+maxAreaNum-1;
 }
 
 Controller.prototype.indexInit = function() {
@@ -142,10 +151,34 @@ Controller.prototype.updateOneTime = function() {
     }
     this.yMove = yMove;
     this.updateIndex();
+    return !this.collisionCheck();
 }
 
 Controller.prototype.collisionCheck = function() {
-
+    var minIndex = this.minIndex;
+    var maxIndex = this.maxIndex;
+    var blockAreas = this.blockAreas;
+    var redball = this.redball;
+    var blueball = this.blueball;
+    var currentBallY = this.currentBallY;
+    for(var i = minIndex; i <= maxIndex; i++) {
+        var blockArea = blockAreas[i];
+        var curBlock = blockArea.block;
+        if(curBlock == null || curBlock.isScoll == true) {
+            continue;
+        }
+        if(intersection(redball, curBlock) != false) {
+            return true;
+        }
+        if(intersection(blueball, curBlock) != false) {
+            return true;
+        }
+        if(curBlock.y+curBlock.width/2-this.moveY-currentBallY < 0) {
+            curBlock.isScoll = true;
+            this.score++;
+        }
+    }
+    return false;
 }
 
 module.exports = Controller.create;
