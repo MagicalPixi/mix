@@ -3,7 +3,7 @@
  */
 var blockAreaCul = function(leftData, rightData) {
     var blockAreas = [];
-    var before, i, j, leftStart, rightStart = 0;
+    var before = 0, i = 0, j = 0, leftStart = 0, rightStart = 0;
     while(i < leftData.length && j < rightData.length) {
         var curLeft = leftData[i];
         var curRight = rightData[j];
