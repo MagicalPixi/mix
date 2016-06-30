@@ -5,6 +5,35 @@ var loader = require('./loader')
 var lineGenerator = require('./sprites/lineGenerator')
 var view = document.getElementById('game')
 var currentDistance = 0
+var oneTimes = 5;
+var oneWidth = (610-30)/(oneTimes*2);
+var operators = [];
+var running = true;
+var ballRunning = 0;
+var ballState = [0, 1, 2];
+var currentState = 0;
+var currentDirection = 0;
+window.onkeydown = function(event) {
+    if(running) {
+        if(event.keyCode == 76) {
+            if(ballRunning == 0) {
+                if(currentState != 0) {
+                    currentState--;
+                  ballRunning = oneTimes;
+                  currentDirection = -1;
+                }
+            }
+        } else if(event.keyCode == 82) {
+            if(ballRunning == 0) {
+                if(currentState != 2) {
+                    currentState++;
+                    ballRunning = oneTimes;
+                  currentDirection = 1;
+                }
+            }
+        }
+    }
+}
 resetSize()
 var renderer = PIXI.autoDetectRenderer(640, aspect * 640, { 
   antialias: true,
@@ -29,6 +58,11 @@ initLine(leftData, true)
 initLine(rightData, false)
 animate();
 function animate() {
+    if(ballRunning != 0) {
+      ballRunning--;
+      blueball.x = blueball.x + currentDirection*oneWidth;
+      redball.x = redball.x-currentDirection*oneWidth;
+    }
     renderer.render(stage);
     block.y -= 8
     if(controller.updateOneTime()) {
