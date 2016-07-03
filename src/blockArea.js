@@ -1,5 +1,6 @@
 /**
  * Created by zjs on 16/6/10.
+ * 生成blockArea的块,一个blockArea的左右两边的颜色是固定的
  */
 var blockAreaCul = function(leftData, rightData) {
     var blockAreas = [];
@@ -17,12 +18,12 @@ var blockAreaCul = function(leftData, rightData) {
           j++
         } else {
           currentHeight = remainLeft > remainRight ? remainRight : remainLeft
-          remainLeft > remainRight ? leftStart += currentHeight : rightStart += currentHeight
+          remainLeft > remainRight ? leftStart -= currentHeight : rightStart -= currentHeight
           remainLeft > remainRight ? j++ : i++
         }
         var curArea = {
-            before : before,
-            height : currentHeight,
+            before : before*80,
+            height : currentHeight*80,
             vaild : curLeft.isRed != curRight.isRed
         };
         blockAreas.push(curArea);

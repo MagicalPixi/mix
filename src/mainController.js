@@ -1,14 +1,16 @@
 /**
  * Created by zjs on 16/6/11.
  */
-
+    //最多显示的障碍物区域,用于障碍物的生成与回收
     var maxAreaNum = 10;
     //由于blockArea的最小高度为1*80所以实际的minAreaHeight未用到
     var minBallAreaHeight = 40;
     var maxBlockR = 40;
     var minBlockR = 20;
 
+//小球半径为20
     var ballR = 20;
+//一次更新向上移动的y值
     var ontimeMove = 8;
 
     var blockballGenerator = require('./sprites/blockball');
@@ -46,13 +48,16 @@ function intersection(circle1, circle2) {
 
 
 function Controller(blockState, blockAreas, blueball, redball) {
+    //block的容器
     this.blockState = blockState;
     this.blockAreas = blockAreas;
     this.blueball = blueball;
     this.redball = redball;
+    //红球和蓝球所处的blockArea的index的最小值与最大值,用于碰撞检测
     this.minIndex = 0;
     this.maxIndex = 0;
     this.maxDisplayIndex = 0;
+    //当前小球的y值,y值不会改变
     this.currentBallY = blueball.y;
     this.score = 0;
     this.yMove = 0;
@@ -68,6 +73,7 @@ Controller.create = function(blockState, blockAreas, blueball, redball) {
 Controller.prototype.firstBlockInit = function() {
     var blockAreas = this.blockAreas;
     var index = 0;
+    //最开始没有障碍物的区域
     var blankArea = 800;
     for(var i = 0; i < blockAreas.length; i++) {
         if(blockAreas[i].before > blankArea) {

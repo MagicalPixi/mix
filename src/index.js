@@ -64,7 +64,7 @@ function animate() {
       redball.x = redball.x-currentDirection*oneWidth;
     }
     renderer.render(stage);
-    block.y -= 8
+    block.y -= 8;
     if(controller.updateOneTime()) {
       requestAnimationFrame(animate);
     }
