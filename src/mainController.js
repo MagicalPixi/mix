@@ -14,10 +14,22 @@
     var ontimeMove = 8;
 
     var blockballGenerator = require('./sprites/blockball');
+var diplay = 0;
+function circleIntersection(cX1, cY1, cR1, cX2, cY2, cR2) {
+    return Math.pow(cX1-cX2, 2)+Math.pow(cY1-cY2, 2) < Math.pow(cR1+cR2, 2);
+}
 
+function ballBlockIntersection(ball, block, ymove) {
+    return circleIntersection(ball.x, ball.y, ball.width/2, block.x, block.y-ymove, block.width/2);
+}
 function intersection(circle1, circle2) {
     var a, dx, dy, d, h, rx, ry;
     var x, y;
+    if(diplay == 5) {
+        console.log(circle1);
+        console.log(circle1.width);
+    }
+    diplay++;
     dx = circle2.x - circle1.x
     dy = circle2.y - circle1.y
     d = Math.sqrt((dy*dy) + (dx*dx));
@@ -70,6 +82,7 @@ Controller.create = function(blockState, blockAreas, blueball, redball) {
     return controller;
 }
 
+//最开始时初始化的障碍
 Controller.prototype.firstBlockInit = function() {
     var blockAreas = this.blockAreas;
     var index = 0;
@@ -87,6 +100,7 @@ Controller.prototype.firstBlockInit = function() {
     this.maxDisplayIndex = index+maxAreaNum-1;
 }
 
+//最开始时小球所处的blockIndex范围
 Controller.prototype.indexInit = function() {
     var blockAreas = this.blockAreas;
     var currentBallY = this.currentBallY;
@@ -105,6 +119,7 @@ Controller.prototype.indexInit = function() {
     }
 }
 
+//生成某个block的障碍
 Controller.prototype.blockInit = function(index) {
     var blockArea = this.blockAreas[index];
     var r = parseInt(Math.random() * (maxBlockR-minBlockR) + minBlockR);
@@ -115,12 +130,14 @@ Controller.prototype.blockInit = function(index) {
     this.maxDisplayIndex = index;
 }
 
+//清除block
 Controller.prototype.clearBlock = function(index) {
     var blockArea = this.blockAreas[index];
     this.blockState.removeChild(blockArea.block);
     blockArea = null;
 }
 
+//更新block,并不是所有block都会显示,
 Controller.prototype.updateDisplayBlock = function() {
     var maxDisplayIndex = this.maxDisplayIndex;
     maxDisplayIndex++;
@@ -160,6 +177,7 @@ Controller.prototype.updateOneTime = function() {
     return !this.collisionCheck();
 }
 
+//碰撞检测
 Controller.prototype.collisionCheck = function() {
     var minIndex = this.minIndex;
     var maxIndex = this.maxIndex;
@@ -167,16 +185,17 @@ Controller.prototype.collisionCheck = function() {
     var redball = this.redball;
     var blueball = this.blueball;
     var currentBallY = this.currentBallY;
+    var yMove = this.yMove;
     for(var i = minIndex; i <= maxIndex; i++) {
         var blockArea = blockAreas[i];
         var curBlock = blockArea.block;
         if(curBlock == null || curBlock.isScoll == true) {
             continue;
         }
-        if(intersection(redball, curBlock) != false) {
+        if(ballBlockIntersection(redball, curBlock, yMove) != false) {
             return true;
         }
-        if(intersection(blueball, curBlock) != false) {
+        if(ballBlockIntersection(blueball, curBlock, yMove) != false) {
             return true;
         }
         if(curBlock.y+curBlock.width/2-this.moveY-currentBallY < 0) {
