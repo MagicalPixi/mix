@@ -174,7 +174,6 @@ Controller.prototype.updateOneTime = function() {
     }
     this.yMove = yMove;
     this.updateIndex();
-    return !this.collisionCheck();
 }
 
 //碰撞检测

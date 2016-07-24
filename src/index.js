@@ -65,7 +65,8 @@ function animate() {
     }
     renderer.render(stage);
     block.y -= 8;
-    if(controller.updateOneTime()) {
+    if(controller.collisionCheck() == false) {
+        controller.updateOneTime();
       requestAnimationFrame(animate);
     }
 }
