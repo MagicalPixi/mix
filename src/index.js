@@ -68,6 +68,9 @@ function animate() {
     if(controller.collisionCheck() == false) {
         controller.updateOneTime();
       requestAnimationFrame(animate);
+    } else {
+        localStorage.pixiScore=controller.yMove/100.0;
+        window.location.href="end.html";
     }
 }
 
