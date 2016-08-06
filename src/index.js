@@ -43,8 +43,8 @@ var renderer = PIXI.autoDetectRenderer(640, aspect * 640, {
 
 var stage = new PIXI.Container()
 var block = new PIXI.Container()
-var leftData = generateRandomGame(160, true)
-var rightData = generateRandomGame(160, false)
+var leftData = generateRandomGame(1600, true)
+var rightData = generateRandomGame(1600, false)
 var blockAreas = require('./blockArea')(leftData, rightData);
 
 var blueball = require('./sprites/blueball')
@@ -86,13 +86,14 @@ function resetSize() {
 function generateRandomGame(sum, isRed) {
   var result = []
   var currentColor = isRed
-  var s = 0
+    result.push({count:10, before:0, isRed:isRed});
+  var s = 10
   while (s < sum) {
     var a
-    if (s >= sum - 6) {
+    if (s >= sum - 10) {
       a = sum - s
     } else {
-      a = parseInt(Math.random() * 5 + 2)
+      a = parseInt(4 + 6)
     }
     var obj = {
       count: a,

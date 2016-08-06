@@ -122,18 +122,24 @@ Controller.prototype.indexInit = function() {
 //生成某个block的障碍
 Controller.prototype.blockInit = function(index) {
     var blockArea = this.blockAreas[index];
-    var r = parseInt(Math.random() * (maxBlockR-minBlockR) + minBlockR);
-    var y = blockArea.before+blockArea.height/2;
-    var block = blockballGenerator(y,r);
-    blockArea.block = block;
-    this.blockState.addChild(block);
+    if(blockArea.leftIsRed == blockArea.rightIsRed) {
+        return;
+    } else {
+        var r = parseInt(Math.random() * (maxBlockR-minBlockR) + minBlockR);
+        var y = blockArea.before+blockArea.height/2;
+        var block = blockballGenerator(y,r);
+        blockArea.block = block;
+        this.blockState.addChild(block);
+    }
     this.maxDisplayIndex = index;
 }
 
 //清除block
 Controller.prototype.clearBlock = function(index) {
     var blockArea = this.blockAreas[index];
-    this.blockState.removeChild(blockArea.block);
+    if(blockArea.block) {
+        this.blockState.removeChild(blockArea.block);
+    }
     blockArea = null;
 }
 
@@ -188,6 +194,29 @@ Controller.prototype.collisionCheck = function() {
     for(var i = minIndex; i <= maxIndex; i++) {
         var blockArea = blockAreas[i];
         var curBlock = blockArea.block;
+        //console.log("minIndex:", minIndex, "maxIndex:", maxIndex,"redball:", redball.x);
+        if(blockArea.leftIsRed) {
+            if(redball.x == 30){
+                console.log(1);
+                return true;
+            }
+        } else {
+            if(blueball.x == 30) {
+                console.log(2);
+                return true;
+            }
+        }
+        if(blockArea.rightIsRed) {
+            if(redball.x == 610) {
+                console.log(3);
+                return true;
+            }
+        } else {
+            if(blueball.x == 610) {
+                console.log(4);
+                return true;
+            }
+        }
         if(curBlock == null || curBlock.isScoll == true) {
             continue;
         }

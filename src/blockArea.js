@@ -24,7 +24,9 @@ var blockAreaCul = function(leftData, rightData) {
         var curArea = {
             before : before*80,
             height : currentHeight*80,
-            vaild : curLeft.isRed != curRight.isRed
+            vaild : curLeft.isRed != curRight.isRed,
+            leftIsRed : curLeft.isRed,
+            rightIsRed : curRight.isRed
         };
         blockAreas.push(curArea);
         before += currentHeight;
