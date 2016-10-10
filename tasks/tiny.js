@@ -8,6 +8,6 @@ var compress = path.resolve(__dirname,'../compress/*/*.png')
 var originDir = path.resolve(__dirname,'../images/')
 
 module.exports = gulp => {
-  gulp.task('tiny', () => gulp.src(pngDir).pipe(tinyPng(apiKey)).pipe(gulp.dest(dest)))
+  gulp.task('tiny', () => gulp.src(pngDir).pipe(tinyPng(key)).pipe(gulp.dest(dest)))
   gulp.task('move', () => gulp.src(compress).pipe(gulp.dest(originDir)))
 }
