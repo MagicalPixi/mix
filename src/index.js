@@ -1,7 +1,8 @@
 
-import loader from './loader'
+import Loaderhelper from './Loaderhelper'
 import config from '../config'
 
-loader.add(config.resource.png, 'png').add(config.resource.json, 'json').load(() => {
-  console.log(loader.textures)
+Loaderhelper.add(config.resource.png, 'png').add(config.resource.json, 'json')
+PIXI.loader.load((loader, resources) => {
+  
 })
