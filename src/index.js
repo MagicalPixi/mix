@@ -5,11 +5,10 @@ import lib from '../lib'
 
 Loaderhelper.add(config.resource.png, 'png').add(config.resource.json, 'json')
 let screen = lib.CreateScreen()
-
 let init = () => {
   let t = new PIXI.Text('', {fontSize: '30px', fontFamily: 'helvetica-light', fill: '#ffffff', stroke: '#ffffff'
 , strokeThickness: 2})
-  t.anchor.x = t.anhor.y = 0.5
+  t.anchor.x = t.anchor.y = 0.5
   t.text = 'Hello Pixi Game'
   t.x = 320,
   t.y = 502
