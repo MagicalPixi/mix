@@ -8,7 +8,7 @@ import config from '../config'
 import runSequence from 'run-sequence'
 var server = 'http://back.magicalpixi.com/'
 
-var names = config.resource || []
+var names = config.resource.png.concat(config.resource.json)
 var urls = []
 var dir = path.resolve(__dirname, '../images/')
 module.exports = (gulp) => {

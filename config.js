@@ -1,3 +1,6 @@
 module.exports = {
-  resource: ['car']
+  resource: {
+    png: [],
+    json: ['car']
+  }
 }

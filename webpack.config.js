@@ -29,6 +29,14 @@ module.exports = {
       {
         test: /\.ejs$/,
         loader: 'ejs-loader?variable=data'
+      },
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015']
+        }
       }
     ]
   },
