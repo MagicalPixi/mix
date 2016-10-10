@@ -15,6 +15,6 @@ _Use combine with [Magicalpixi](http://back.magicalpixi.com/index/index)_
 
 * [ ] Clear `qiniu` and `tiny` config to custom
 * [x] Add [`ES6`](http://es6.ruanyifeng.com/) support
-* [ ] Add some init code into `src`
+* [x] Add some init code into `src`
 * [ ] Finish function and usage doc in README
 * [ ] PIXI 4.0 compatible
