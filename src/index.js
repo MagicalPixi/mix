@@ -1,24 +1,20 @@
 
-import Loaderhelper from './Loaderhelper'
 import config from '../config'
-import lib from '../lib'
+import {createRender} from 'pixi-lib'
+import loader from './loader'
+import carFn from '../images/car'
 
-Loaderhelper.add(config.resource.png, 'png').add(config.resource.json, 'json')
-let screen = lib.CreateScreen()
-let init = () => {
-  let t = new PIXI.Text('', {fontSize: '30px', fontFamily: 'helvetica-light', fill: '#ffffff', stroke: '#ffffff'
-, strokeThickness: 2})
-  t.anchor.x = t.anchor.y = 0.5
-  t.text = 'Hello Pixi Game'
-  t.x = 320,
-  t.y = 502
-  screen.addChild(t)
-}
+let render = createRender(document.body)
+let stage = new PIXI.Container()
+render(stage)
 
-if (config.resource.png.length > 0 && config.resource.json.length > 0) {
-  PIXI.loader.load((loader, resources) => {
-    init()
-  })
-} else {
-  init()
-}
+loader.add(config.resource.json, 'json').add(config.resource.png, 'png').load((loader,loadedResourceCache) => {
+  console.log(loadedResourceCache)
+  let scene = new PIXI.Container()
+  let car = carFn()
+  car.anchor.x = car.anchor.y = 0.5
+  car.x = 320
+  car.y = 502
+  scene.addChild(car)
+  stage.addChild(scene)
+})
