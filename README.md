@@ -1,29 +1,17 @@
-#Mix
-###Generate CSS file 
+# PIXI Game Template
 
-Install sass if need
+### A template to fast build PIXI game
 
-```bash
-npm install -g sass
+### Usage
 
-```
+_Use combine with [Magicalpixi](http://back.magicalpixi.com/index/index)_
 
-####Development
+- Create sprite in [Magicalpixi](http://back.magicalpixi.com/index/index)
+- Add sprite name into `config.js` source
+- Run `gulp down`
+- Now the Sprite will be create in `/images/`
 
-```bash
-chmod 777 ./output-css.sh
-output-css.sh
-```
+###TODO
 
-####Production
-
-```bash
-Some instruction
-
-```
-
-####Javascript
-
-_Will be added in the feature_
-
-####Use `npm start` to start the project 
+* [ ] Clear `qiniu` and `tiny` config to custom
+* [ ] Add [`ES6`](http://es6.ruanyifeng.com/) support

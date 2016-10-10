@@ -1,5 +1,6 @@
 import qiniu from 'gulp-qiniu'
 import path from 'path'
+
 var imageDir = path.resolve(__dirname, '../images/**/*.png')
 var config = {
     accessKey: "EyEwm6Bjadr4ojSFxpKWt6k-PoyT99D5l_qMCEaL",
@@ -8,7 +9,7 @@ var config = {
     private: false
 }
 var extra = {
-    dir: 'mix/',
+    dir: 'game_name/',
     versioning: true,
     versionFile: './cdn.json',
     concurrent: 10
